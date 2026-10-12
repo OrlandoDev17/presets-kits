@@ -1,0 +1,36 @@
+---
+const TILE_VARIANTS = {
+  primary: "bg-primary",
+  light: "bg-light",
+  dark: "bg-dark",
+} as const;
+
+type Variant = keyof typeof TILE_VARIANTS;
+
+interface Props {
+  label: string;
+  variant?: Variant;
+  class?: string;
+}
+
+const { label, variant = "primary", class: className } = Astro.props;
+---
+
+<article
+  class:list={[
+    "relative flex flex-col items-center justify-center gap-2 w-full aspect-square border-4 border-light rounded-xl",
+    TILE_VARIANTS[variant],
+    className,
+  ]}
+>
+  <slot />
+  <span
+    class:list={[
+      "absolute left-4 text-xs font-medium font-mono",
+      variant === "dark" ? "text-light" : "text-dark",
+      label === "clipReveal" ? "bottom-0" : "bottom-2"
+    ]}
+  >
+    {label}
+  </span>
+</article>

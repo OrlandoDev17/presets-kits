@@ -1,0 +1,112 @@
+---
+import ShowcaseTile from "@/components/home/ShowcaseTile.astro";
+---
+
+<aside class="flex items-center justify-end h-full w-full" aria-hidden="true">
+  <article data-hero="card" class="flex flex-col gap-4 bg-dark p-6 rounded-2xl min-h-96 w-full max-w-md custom-shadow-lg">
+    <header class="flex items-center justify-between">
+      <ul class="flex items-center gap-2 list-none m-0 p-0">
+        <li>
+          <span class="block size-3 bg-light rounded-full outline-1 outline-light/30" />
+        </li>
+        <li>
+          <span class="block size-3 bg-primary rounded-full outline-1 outline-light/30" />
+        </li>
+        <li>
+          <span class="block size-3 bg-light/50 rounded-full outline-1 outline-light/30" />
+        </li>
+      </ul>
+      <span class="text-light/50 text-xs font-mono">hero.tsx</span>
+    </header>
+    <div class="flex-1 border-b border-light/50 pb-4">
+      <div data-hero="code-line" class="text-light font-mono font-medium">
+        <span class="text-primary">import </span>
+        {`{animateFrom}`}
+        <span class="text-primary"> from </span>
+        <span class="text-light/60">{`"gsap-presets-kit"`}</span>
+        <span class="text-primary/60 cursor-blink">|</span>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h3 class="uppercase text-primary text-xs font-medium">Resultado</h3>
+      <div data-hero="tiles" class="grid grid-cols-3 gap-2">
+        <ShowcaseTile label="stagger">
+          <div data-hero="stagger-dots" class="grid grid-cols-4 place-items-center gap-3">
+            {Array.from({ length: 12 }).map(() => (
+              <span class="size-3 bg-dark rounded-full" />
+            ))}
+          </div>
+        </ShowcaseTile>
+        <ShowcaseTile label="clipReveal" variant="light">
+          <div data-hero="clip-demo" class="clip-reveal-inner size-20 rounded-lg border-2 border-dark relative overflow-hidden" />
+        </ShowcaseTile>
+        <ShowcaseTile label="splitText" variant="dark">
+          <div data-hero="split-demo" class="text-4xl text-primary font-heading font-black">GSAP</div>
+        </ShowcaseTile>
+      </div>
+    </div>
+  </article>
+</aside>
+
+<style>
+  .clip-reveal-inner {
+    background-color: var(--color-primary);
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--color-dark) 0,
+      var(--color-dark) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+    background-size: 100% 100%;
+  }
+
+  .cursor-blink {
+    animation: cursor-blink 1s step-end infinite;
+  }
+
+  @keyframes cursor-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor-blink {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { animateFromTo, clipReveal, splitTextReveal } from "gsap-presets-kit";
+  import { $, $$ } from "@/lib/dom";
+
+  const dots = $$("[data-hero='stagger-dots'] span");
+  const clipDemo = $("[data-hero='clip-demo']");
+  const splitDemo = $("[data-hero='split-demo']");
+
+  // Cada tile re-ejecuta su propio preset al hacer hover sobre el.
+  const staggerTile = $("[data-hero='stagger-dots']")?.closest("article");
+  const clipTile = clipDemo?.closest("article");
+  const splitTile = splitDemo?.closest("article");
+
+  // animateFromTo (no animateFrom): el estado final queda explicito (scale: 1).
+  // Si se interrumpe a medio vuelo, animateFrom registraria el valor parcial
+  // actual como destino y los dots quedarian clavados en ese tamano.
+  staggerTile?.addEventListener("mouseenter", () => {
+    animateFromTo(dots, { scale: 0 }, { scale: 1, stagger: 0.04, duration: 0.4, scroll: false, overwrite: true });
+  });
+
+  clipTile?.addEventListener("mouseenter", () => {
+    if (clipDemo) {
+      clipReveal(clipDemo, { direction: "up", scroll: false, overwrite: true });
+    }
+  });
+
+  splitTile?.addEventListener("mouseenter", () => {
+    if (splitDemo) {
+      splitTextReveal(splitDemo, { type: "chars", stagger: 0.05, duration: 0.5, scroll: false, overwrite: true });
+    }
+  });
+</script>
