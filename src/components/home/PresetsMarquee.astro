@@ -1,0 +1,40 @@
+---
+  const GSAP_PRESETS = ["AnimateFrom", "AnimateTo", "AnimateFromTo", "SplitTextReveal", "ClipReveal"];
+
+  const MOTION_PRESETS = ["fade", "slide", "scale", "clipReveal", "parentVariants", "TextAnimate", "Marquee"]
+---
+
+<section class="mt-12 w-full overflow-x-clip py-12">
+  <div class="relative left-1/2 flex w-[120%] -translate-x-1/2 -rotate-3 flex-col gap-6 bg-dark py-4">
+    <ul data-presets="gsap" class="flex items-center justify-center gap-4 whitespace-nowrap font-heading text-6xl font-black">
+      {
+        GSAP_PRESETS.map((item) => (
+          <li class="text-primary">
+            {item} <span class="text-light"> /</span>
+          </li>
+        ))
+      }
+    </ul>
+    <ul data-presets="motion" class="flex items-center justify-center gap-4 whitespace-nowrap font-heading text-6xl font-black">
+      {
+        MOTION_PRESETS.map((item) => (
+          <li class="text-light">
+            {item} <span class="text-primary"> /</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  import { marquee } from "gsap-presets-kit";
+  import { $ } from "@/lib/dom"
+
+  const gsapPresets = $("[data-presets='gsap']")
+  const motionPresets = $("[data-presets='motion']")
+
+  if (gsapPresets) marquee(gsapPresets, { direction: "right", speed: 120, pauseOnHover: false })
+  if (motionPresets) marquee(motionPresets, { direction: "left", speed: 120, pauseOnHover: false })
+
+</script>
