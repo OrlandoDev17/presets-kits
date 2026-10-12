@@ -1,0 +1,29 @@
+---
+const BUTTON_VARIANTS = {
+  primary: "bg-primary text-dark",
+  light: "bg-light text-dark",
+  dark: "bg-dark text-light",
+} as const;
+
+type Variant = keyof typeof BUTTON_VARIANTS;
+
+interface Props {
+  variant?: Variant;
+  href?: string;
+  class?: string;
+}
+
+const { variant = "primary", href, class: className } = Astro.props;
+const Tag = href ? "a" : "button";
+---
+
+<Tag
+  {...(href ? { href } : { type: "button" })}
+  class:list={[
+    "inline-flex items-center gap-1 px-6 py-2 rounded-full outline-2 outline-dark custom-shadow font-extrabold hover:-translate-y-1 transition-all duration-300 cursor-pointer",
+    BUTTON_VARIANTS[variant],
+    className,
+  ]}
+>
+  <slot />
+</Tag>

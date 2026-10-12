@@ -1,0 +1,74 @@
+---
+import { Check, Copy } from "@lucide/astro";
+
+const TERMINAL_VARIANTS = {
+  primary: { surface: "bg-primary text-dark", shadow: "var(--color-dark)" },
+  dark: { surface: "bg-dark text-light", shadow: "var(--color-primary)" },
+  light: { surface: "bg-light text-dark", shadow: "var(--color-dark)" },
+} as const;
+
+type Variant = keyof typeof TERMINAL_VARIANTS;
+
+interface Props {
+  code: string;
+  variant?: Variant;
+  class?: string;
+}
+
+const { code, variant = "primary", class: className } = Astro.props;
+const { surface, shadow } = TERMINAL_VARIANTS[variant];
+---
+
+<div
+  class:list={[
+    "flex items-center gap-6 px-6 py-2.5 rounded-xl font-mono text-sm border-2 border-dark overflow-x-auto",
+    surface,
+    className,
+  ]}
+  style={`--terminal-shadow: ${shadow}`}
+>
+  <span class="font-bold shrink-0 opacity-75" aria-hidden="true">$</span>
+  <code class="whitespace-nowrap">{code}</code>
+  <button
+    type="button"
+    class="copy-btn ml-auto inline-flex items-center justify-center size-7 shrink-0 rounded-md cursor-pointer hover:opacity-70 transition-opacity"
+    data-code={code}
+    aria-label={`Copiar comando: ${code}`}
+  >
+    <Copy class="icon-copy size-4" />
+    <Check class="icon-check size-4 hidden" />
+  </button>
+</div>
+
+<style>
+  div {
+    box-shadow: 3px 3px 0 2px var(--terminal-shadow);
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".copy-btn");
+
+  for (const button of buttons) {
+    button.addEventListener("click", async () => {
+      const code = button.dataset.code ?? "";
+
+      try {
+        await navigator.clipboard.writeText(code);
+      } catch {
+        return;
+      }
+
+      const copyIcon = button.querySelector(".icon-copy");
+      const checkIcon = button.querySelector(".icon-check");
+
+      copyIcon?.classList.add("hidden");
+      checkIcon?.classList.remove("hidden");
+
+      setTimeout(() => {
+        copyIcon?.classList.remove("hidden");
+        checkIcon?.classList.add("hidden");
+      }, 1500);
+    });
+  }
+</script>

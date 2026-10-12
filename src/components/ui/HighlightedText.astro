@@ -1,0 +1,26 @@
+---
+const HIGHLIGHT_VARIANTS = {
+  primary: "bg-primary text-dark border-4 border-dark",
+  light: "bg-light text-dark border-4 border-dark",
+  dark: "bg-dark text-light border-4 border-dark",
+} as const;
+
+type Variant = keyof typeof HIGHLIGHT_VARIANTS;
+
+interface Props {
+  variant?: Variant;
+  class?: string;
+}
+
+const { variant = "primary", class: className } = Astro.props;
+---
+
+<span class:list={["inline-block rounded-lg px-3 py-0.5 -rotate-2 highlight-shadow", HIGHLIGHT_VARIANTS[variant], className]}>
+  <slot />
+</span>
+
+<style>
+  .highlight-shadow {
+    box-shadow: 6px 6px 0 2px var(--color-dark);
+  }
+</style>
