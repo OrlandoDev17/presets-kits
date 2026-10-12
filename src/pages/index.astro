@@ -1,8 +1,14 @@
 ---
 import HeroSection from "@/components/home/HeroSection.astro";
+import PresetsMarquee from "@/components/home/PresetsMarquee.astro";
+import ScrollSection from "@/components/home/ScrollSection.astro";
 import Layout from "@/components/layout/Layout.astro";
 ---
 
 <Layout title="Inicio" description="Página de inicio de Presets Kits">
   <HeroSection />
+  <div class="mb-8">
+    <PresetsMarquee />
+  </div>
+  <ScrollSection />
 </Layout>
