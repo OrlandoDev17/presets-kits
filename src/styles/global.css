@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource-variable/bricolage-grotesque";
+
+@theme {
+  --font-heading: "Bricolage Grotesque Variable", sans-serif;
+  --font-sans: "Instrument Sans Variable", sans-serif;
+  --font-mono: "JetBrains Mono Variable", monospace;
+
+  --color-primary: #C6FF3D;
+  --color-dark: #0E0E10;
+  --color-light: #F4F1E8;
+}
+
+@utility custom-shadow {
+  box-shadow: 2px 2px 0 3px var(--color-dark);
+}
+
+@utility custom-shadow-primary {
+  box-shadow: 2px 2px 0 3px var(--color-primary);
+}
+
+@utility custom-shadow-lg {
+  box-shadow: 8px 8px 0 4px var(--color-primary);
+}
+
+html {
+  background-color: var(--color-light);
+  font-family: var(--font-sans);
+  color: var(--color-dark);
+}
