@@ -193,31 +193,28 @@ const TAGS = [
             animateFromTo(
               [kicker, title],
               { y: 24, opacity: 0 },
-              { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out", timeline: tl },
-            );
-          }
-          for (const [index, card] of cards.entries()) {
-            animateFromTo(
-              card,
-              { y: 48, opacity: 0, rotation: index % 2 === 0 ? -1.5 : 1.5 },
-              {
-                y: 0,
-                opacity: 1,
-                rotation: 0,
-                duration: 0.6,
-                ease: "back.out(1.4)",
-                timeline: tl,
-                position: 0.15 + index * 0.08,
-              },
+              { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out" },
+              { timeline: tl },
             );
           }
           if (bars.length > 0) {
             animateFromTo(
               bars,
               { x: -48, opacity: 0 },
-              { x: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: "power3.out", timeline: tl, position: 0.8 },
+              { x: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: "power3.out" },
+              { timeline: tl, position: 0.4 },
             );
           }
+        }
+
+        // Cards: cada una entra con su tilt al llegar al viewport (no importa
+        // cuán profunda quede en la sección, la entrada siempre es visible).
+        for (const [index, card] of cards.entries()) {
+          animateFromTo(
+            card,
+            { y: 48, opacity: 0, rotation: index % 2 === 0 ? -1.5 : 1.5 },
+            { y: 0, opacity: 1, rotation: 0, duration: 0.6, ease: "back.out(1.4)" },
+          );
         }
 
         // Demos: cada preset dispara cuando su card entra al viewport.
@@ -260,7 +257,8 @@ const TAGS = [
           animateFromTo(
             bars,
             { x: -48, opacity: 0 },
-            { x: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: "power3.out", scroll: false, overwrite: true },
+            { x: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: "power3.out", overwrite: true },
+            { scroll: false },
           );
         }
       });
@@ -281,14 +279,16 @@ const TAGS = [
           animateFromTo(
             pills,
             { scale: 0.6, opacity: 0 },
-            { scale: 1, opacity: 1, stagger: 0.06, duration: 0.45, ease: "back.out(1.7)", scroll: false, overwrite: true },
+            { scale: 1, opacity: 1, stagger: 0.06, duration: 0.45, ease: "back.out(1.7)", overwrite: true },
+            { scroll: false },
           );
         }
         if (codeLines.length > 0) {
           animateFromTo(
             codeLines,
             { y: -12, opacity: 0 },
-            { y: 0, opacity: 1, stagger: 0.1, duration: 0.4, ease: "power2.out", scroll: false, overwrite: true },
+            { y: 0, opacity: 1, stagger: 0.1, duration: 0.4, ease: "power2.out", overwrite: true },
+            { scroll: false },
           );
         }
       });
