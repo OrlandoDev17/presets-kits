@@ -1,0 +1,297 @@
+---
+import HighlightedText from "@/components/ui/HighlightedText.astro";
+import TerminalCode from "@/components/ui/TerminalCode.astro";
+
+const CARD_BASE =
+	"flex flex-col gap-4 p-6 rounded-2xl border-4 border-dark custom-shadow transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transition-none";
+
+const MARQUEE_ITEMS = [
+	"fade",
+	"slide",
+	"scale",
+	"clipReveal",
+	"parentVariants",
+	"Marquee",
+];
+
+const TAGS = [
+	"Zod",
+	"TypeScript",
+	"Tree-shakeable",
+	"SSR-safe",
+	"Reduced-motion",
+];
+---
+
+<section data-inside-section class="mx-auto w-full max-w-7xl px-4 py-16" aria-label="Qué incluyen los kits">
+  <header class="flex flex-col gap-2">
+    <p data-inside-kicker class="font-mono text-sm font-medium text-dark/75">QUÉ INCLUYE CADA KIT.</p>
+    <h2 data-inside-title class="font-heading text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight">
+      <HighlightedText>SEIS PRESETS.</HighlightedText> UN PUÑADO DE HELPERS.
+    </h2>
+  </header>
+
+  <div class="mt-12 grid grid-cols-1 gap-4 lg:auto-rows-fr lg:grid-cols-3">
+    <!-- 1 · scroll + timelines -->
+    <article data-inside-card class:list={[CARD_BASE, "bg-dark lg:col-span-2 lg:row-span-2"]}>
+      <div class="flex flex-col gap-4">
+        <h3 class="font-heading text-4xl lg:text-5xl font-black tracking-tight text-light">SCROLL + TIMELINES.</h3>
+        <p class="text-lg text-light/75">
+          Cada helper dispara al entrar al viewport. O súmalos a una timeline con
+          <b class="font-semibold text-light">scrollTimeline</b> y se reproducen en secuencia.
+        </p>
+      </div>
+      <div class="mt-auto flex flex-col gap-2.5" aria-hidden="true">
+        <span data-inside-bar class="h-3 w-full rounded-full bg-primary" />
+        <span data-inside-bar class="h-3 w-4/5 rounded-full bg-primary" />
+        <span data-inside-bar class="h-3 w-3/5 rounded-full bg-primary" />
+        <span data-inside-bar class="h-3 w-2/5 rounded-full bg-primary" />
+      </div>
+      <TerminalCode code="scrollTimeline({ trigger: '#hero' })" variant="primary" class="w-fit" />
+    </article>
+
+    <!-- 2 · counter -->
+    <article data-inside-card class:list={[CARD_BASE, "bg-primary lg:col-start-3"]}>
+      <p class="font-mono text-sm font-medium text-dark/75">counter / useCounter</p>
+      <div class="flex flex-1 items-end">
+        <p data-inside-counter class="font-heading text-7xl font-black tracking-tight text-dark">1.125</p>
+      </div>
+    </article>
+
+    <!-- 3 · clipReveal -->
+    <article data-inside-card class:list={[CARD_BASE, "bg-light lg:col-start-3 lg:row-start-2"]}>
+      <p class="font-mono text-sm font-medium text-dark/75">clipReveal / clipReveal</p>
+      <div class="flex flex-1 items-center">
+        <div data-inside-clip class="clip-reveal-inner h-36 w-full rounded-lg border-2 border-dark" />
+      </div>
+    </article>
+
+    <!-- 4 · splitTextReveal -->
+    <article data-inside-card class:list={[CARD_BASE, "bg-light lg:col-start-1 lg:row-start-3"]}>
+      <p class="font-mono text-sm font-medium text-dark/75">splitTextReveal / TextAnimate</p>
+      <div class="flex flex-1 items-center">
+        <h3 data-inside-split class="font-heading text-3xl font-black tracking-tight text-dark">
+          CADA PALABRA APARECE EN ORDEN.
+        </h3>
+      </div>
+    </article>
+
+    <!-- 5 · typewriter -->
+    <article data-inside-card class:list={[CARD_BASE, "bg-primary lg:col-start-2 lg:row-start-3"]}>
+      <p class="font-mono text-sm font-medium text-dark/75">typewriter / TextAnimate</p>
+      <div class="flex flex-1 items-center">
+        <p data-inside-type class="font-mono text-xl font-medium text-dark">tipado, validado y sin config.</p>
+      </div>
+    </article>
+
+    <!-- 6 · marquee -->
+    <article data-inside-card class:list={[CARD_BASE, "bg-light lg:col-start-3 lg:row-start-3"]}>
+      <p class="font-mono text-sm font-medium text-dark/75">marquee / Marquee</p>
+      <div class="flex w-full flex-1 items-center overflow-hidden" aria-hidden="true">
+        <ul data-inside-marquee class="flex items-center gap-3 font-heading text-2xl font-bold whitespace-nowrap text-dark">
+          {
+            MARQUEE_ITEMS.map((item) => (
+              <li>
+                {item} <span class="text-dark/30">/</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </article>
+
+    <!-- 7 · tipado y validado -->
+    <article data-inside-card class:list={[CARD_BASE, "bg-dark lg:col-start-1 lg:row-start-4 lg:col-span-3"]}>
+      <div class="flex w-full flex-col gap-6 lg:flex-row lg:items-center lg:gap-10">
+        <div class="flex flex-col gap-6 lg:w-2/5">
+          <h3 class="font-heading text-4xl lg:text-5xl font-black tracking-tight text-primary">TIPADO Y VALIDADO.</h3>
+          <ul class="flex flex-wrap gap-2">
+            {
+              TAGS.map((tag, index) => (
+                <li
+                  data-inside-pill
+                  class:list={[
+                    "rounded-full border-2 border-dark px-4 py-1 font-mono text-sm font-medium",
+                    index === 0 ? "bg-primary text-dark" : "bg-light text-dark",
+                  ]}
+                >
+                  {tag}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="flex-1 rounded-xl border-2 border-light/30 p-4 font-mono text-sm leading-7 text-light">
+          <p data-inside-codeline>
+            <span class="text-primary">import</span> {"{ presetOptionsSchema }"} <span class="text-primary">from</span>
+            <span class="text-light/60">"gsap-presets-kit"</span>;
+          </p>
+          <p data-inside-codeline>presetOptionsSchema.parse({"{ duration: -1 }"});</p>
+          <p data-inside-codeline>
+            <span class="text-primary">// ZodError:</span>
+            <span class="text-light/60">Too small: expected number to be &gt;0</span>
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .clip-reveal-inner {
+    background-color: var(--color-primary);
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--color-dark) 0,
+      var(--color-dark) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+    background-size: 100% 100%;
+  }
+</style>
+
+<script>
+  import {
+    animateFromTo,
+    clipReveal,
+    counter,
+    marquee,
+    presetContext,
+    scrollTimeline,
+    splitTextReveal,
+    typewriter,
+  } from "gsap-presets-kit";
+  import { $, $$ } from "@/lib/dom";
+
+  const section = $("[data-inside-section]");
+  const cards = $$("[data-inside-card]");
+  const kicker = $("[data-inside-kicker]");
+  const title = $("[data-inside-title]");
+  const bars = $$("[data-inside-bar]");
+  const counterEl = $("[data-inside-counter]");
+  const clipEl = $("[data-inside-clip]");
+  const splitEl = $("[data-inside-split]");
+  const typeEl = $("[data-inside-type]");
+  const marqueeTrack = $("[data-inside-marquee]");
+  const pills = $$("[data-inside-pill]");
+  const codeLines = $$("[data-inside-codeline]");
+
+  const cardOf = (element: Element | null | undefined) => element?.closest("[data-inside-card]");
+
+  if (section && cards.length > 0) {
+    // Con movimiento reducido la sección queda estática: los estados finales viven en el HTML.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const ctx = presetContext();
+
+      ctx.run(() => {
+        // Entrada: encabezado y cards inclinándose al sitio.
+        const tl = scrollTimeline({ trigger: section, start: "top 75%" });
+
+        if (tl) {
+          if (kicker && title) {
+            animateFromTo(
+              [kicker, title],
+              { y: 24, opacity: 0 },
+              { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out", timeline: tl },
+            );
+          }
+          for (const [index, card] of cards.entries()) {
+            animateFromTo(
+              card,
+              { y: 48, opacity: 0, rotation: index % 2 === 0 ? -1.5 : 1.5 },
+              {
+                y: 0,
+                opacity: 1,
+                rotation: 0,
+                duration: 0.6,
+                ease: "back.out(1.4)",
+                timeline: tl,
+                position: 0.15 + index * 0.08,
+              },
+            );
+          }
+          if (bars.length > 0) {
+            animateFromTo(
+              bars,
+              { x: -48, opacity: 0 },
+              { x: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: "power3.out", timeline: tl, position: 0.8 },
+            );
+          }
+        }
+
+        // Demos: cada preset dispara cuando su card entra al viewport.
+        if (counterEl) {
+          counter(counterEl, { from: 0, to: 1.125, decimals: 3, duration: 1.4, ease: "power1.out" });
+        }
+        if (clipEl) clipReveal(clipEl, { direction: "up", scale: 1.05 });
+        if (splitEl) splitTextReveal(splitEl, { type: "words", stagger: 0.06, duration: 0.5 });
+        if (marqueeTrack) marquee(marqueeTrack, { speed: 60, pauseOnHover: true });
+        if (pills.length > 0) {
+          animateFromTo(
+            pills,
+            { scale: 0.6, opacity: 0 },
+            { scale: 1, opacity: 1, stagger: 0.06, duration: 0.45, ease: "back.out(1.7)" },
+          );
+        }
+        if (codeLines.length > 0) {
+          animateFromTo(
+            codeLines,
+            { y: -12, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.1, duration: 0.4, ease: "power2.out" },
+          );
+        }
+      });
+
+      // El typewriter rebuilda el DOM en cada llamada: replay con su propio context,
+      // cuyo revert restaura el texto original antes de volver a tipear.
+      const typeCtx = presetContext();
+      const playTypewriter = (scroll: boolean) => {
+        typeCtx.revert();
+        typeCtx.run(() => {
+          if (typeEl) typewriter(typeEl, { speed: 45, scroll, hideCursorOnComplete: false });
+        });
+      };
+      if (typeEl) playTypewriter(true);
+
+      // Hover: cada card repite su demo (patrón del showcase; el marquee solo se pausa).
+      cardOf(bars[0])?.addEventListener("mouseenter", () => {
+        if (bars.length > 0) {
+          animateFromTo(
+            bars,
+            { x: -48, opacity: 0 },
+            { x: 0, opacity: 1, stagger: 0.08, duration: 0.5, ease: "power3.out", scroll: false, overwrite: true },
+          );
+        }
+      });
+      cardOf(counterEl)?.addEventListener("mouseenter", () => {
+        if (counterEl) {
+          counter(counterEl, { from: 0, to: 1.125, decimals: 3, duration: 1.4, ease: "power1.out", scroll: false, overwrite: true });
+        }
+      });
+      cardOf(clipEl)?.addEventListener("mouseenter", () => {
+        if (clipEl) clipReveal(clipEl, { direction: "up", scale: 1.05, scroll: false, overwrite: true });
+      });
+      cardOf(splitEl)?.addEventListener("mouseenter", () => {
+        if (splitEl) splitTextReveal(splitEl, { type: "words", stagger: 0.06, duration: 0.5, scroll: false, overwrite: true });
+      });
+      cardOf(typeEl)?.addEventListener("mouseenter", () => playTypewriter(false));
+      cardOf(pills[0])?.addEventListener("mouseenter", () => {
+        if (pills.length > 0) {
+          animateFromTo(
+            pills,
+            { scale: 0.6, opacity: 0 },
+            { scale: 1, opacity: 1, stagger: 0.06, duration: 0.45, ease: "back.out(1.7)", scroll: false, overwrite: true },
+          );
+        }
+        if (codeLines.length > 0) {
+          animateFromTo(
+            codeLines,
+            { y: -12, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.1, duration: 0.4, ease: "power2.out", scroll: false, overwrite: true },
+          );
+        }
+      });
+    }
+  }
+</script>
