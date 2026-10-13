@@ -1,0 +1,117 @@
+<section data-features-section class="flex flex-col gap-4 bg-primary border-b-2 border-dark">
+  <div class="flex flex-col gap-4 max-w-7xl mx-auto w-full px-4 py-16">
+    <h3 data-features-title="reveal" class="text-9xl font-heading font-black">REVEAL.</h3>
+    <h3
+      data-features-title="parallax"
+      class="text-9xl text-right text-light font-heading font-black ghost-text whitespace-nowrap"
+    >
+      PARALLAX.
+    </h3>
+    <h3 data-features-title="marquee" class="text-9xl font-heading font-black">MARQUEE.</h3>
+    <ul class="flex items-center justify-center gap-8 mt-16" aria-hidden="true">
+      <li data-features-fig class="size-48 border-4 border-dark bg-dark custom-shadow-light" />
+      <li data-features-fig class="size-48 border-4 border-dark rounded-full bg-light custom-shadow-dark" />
+      <li data-features-fig class="size-48 border-4 border-dark rounded-xl bg-dark custom-shadow-light" />
+      <li
+        data-features-fig
+        class="size-48 border-4 border-dark rounded-br-[100px] rounded-tr-4xl rounded-xl bg-light custom-shadow-dark"
+      />
+    </ul>
+  </div>
+</section>
+
+<style>
+  .ghost-text {
+    -webkit-text-stroke: 2px var(--color-dark);
+  }
+
+  .custom-shadow-light {
+    box-shadow: 5px 5px 0 2px var(--color-light);
+  }
+
+  .custom-shadow-dark {
+    box-shadow: 5px 5px 0 2px var(--color-dark);
+  }
+</style>
+
+<script>
+  import { animateFrom, clipReveal, presetContext, scrollTimeline, splitTextReveal } from "gsap-presets-kit";
+  import { $, $$ } from "@/lib/dom";
+
+  const section = $("[data-features-section]");
+  const revealTitle = $("[data-features-title='reveal']");
+  const parallaxTitle = $("[data-features-title='parallax']");
+  const marqueeTitle = $("[data-features-title='marquee']");
+  const [square, circle, tile, organic] = $$("[data-features-fig]");
+
+  if (section && revealTitle && parallaxTitle && marqueeTitle && square && circle && tile && organic) {
+    // Con movimiento reducido la sección queda estática: todas las entradas son "from".
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const ctx = presetContext();
+
+      ctx.run(() => {
+        const tl = scrollTimeline({ trigger: section, start: "top 70%" });
+
+        if (tl) {
+          // Cada título demuestra el preset que nombra.
+          clipReveal(revealTitle, { direction: "left", scale: 1.04, timeline: tl });
+          splitTextReveal(parallaxTitle, {
+            type: "chars",
+            stagger: 0.03,
+            duration: 0.5,
+            timeline: tl,
+            position: 0.25,
+          });
+          animateFrom(marqueeTitle, {
+            x: 220,
+            opacity: 0,
+            rotation: 1.5,
+            duration: 0.7,
+            ease: "power3.out",
+            timeline: tl,
+            position: 0.45,
+          });
+
+          // Las figuras entran girando, botando o deslizándose, cada una a lo suyo.
+          animateFrom(square, {
+            rotation: -270,
+            scale: 0,
+            opacity: 0,
+            duration: 0.7,
+            ease: "back.out(1.7)",
+            timeline: tl,
+            position: 0.65,
+          });
+          animateFrom(circle, {
+            y: 96,
+            scale: 0,
+            opacity: 0,
+            duration: 0.7,
+            ease: "back.out(2)",
+            timeline: tl,
+            position: 0.77,
+          });
+          animateFrom(tile, {
+            rotation: 270,
+            scale: 0,
+            opacity: 0,
+            duration: 0.7,
+            ease: "back.out(1.7)",
+            timeline: tl,
+            position: 0.89,
+          });
+          animateFrom(organic, {
+            rotation: -120,
+            x: -80,
+            scale: 0.3,
+            opacity: 0,
+            duration: 0.7,
+            ease: "back.out(1.6)",
+            timeline: tl,
+            position: 1.01,
+          });
+        }
+      });
+    }
+  }
+</script>
