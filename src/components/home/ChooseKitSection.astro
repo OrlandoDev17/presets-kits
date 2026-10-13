@@ -4,13 +4,13 @@ import HighlightedText from "@/components/ui/HighlightedText.astro";
 import TerminalCode from "@/components/ui/TerminalCode.astro";
 
 const CARD_BASE =
-	"flex flex-col gap-6 p-6 rounded-2xl border-4 border-dark custom-shadow-primary transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transition-none";
+	"flex flex-col gap-6 p-6 rounded-2xl border-4 border-dark kit-shadow transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transition-none";
 
 const PEER =
 	"rounded-full border-2 border-dark bg-dark px-4 py-1 font-mono text-sm font-medium text-light";
 
 const CODE_BASE =
-	"flex flex-col rounded-xl border-2 border-dark bg-dark p-4 font-mono text-sm leading-7 text-light overflow-x-auto";
+	"flex flex-col rounded-xl border-2 border-dark bg-dark p-4 font-mono text-xs leading-7 text-light overflow-x-auto xl:text-sm";
 ---
 
 <section data-choose-section class="bg-dark" aria-label="Elige tu motor">
@@ -41,7 +41,7 @@ const CODE_BASE =
         </p>
         <div class:list={[CODE_BASE, "flex-1"]}>
           <p data-choose-codeline class="whitespace-nowrap">
-            <span class="text-primary">import</span> {"{ animateFrom, clipReveal }"} <span class="text-primary">from</span>
+            <span class="text-primary">import</span> {"{animateFrom, clipReveal}"} <span class="text-primary">from</span>
             <span class="text-light/60">"gsap-presets-kit"</span>;
           </p>
           <p data-choose-codeline class="whitespace-nowrap">&nbsp;</p>
@@ -74,19 +74,15 @@ const CODE_BASE =
         </p>
         <div class:list={[CODE_BASE, "flex-1"]}>
           <p data-choose-codeline class="whitespace-nowrap">
-            <span class="text-primary">import</span> {"{ fade, parentVariants }"} <span class="text-primary">from</span>
+            <span class="text-primary">import</span> {"{fade, slide}"} <span class="text-primary">from</span>
             <span class="text-light/60">"motion-presets-kit/presets"</span>;
           </p>
           <p data-choose-codeline class="whitespace-nowrap">&nbsp;</p>
           <p data-choose-codeline class="whitespace-nowrap">
-            <span class="text-primary">&lt;motion.ul</span> variants={"{parentVariants({ delayChildren: 0.12 })}"}
-            <span class="text-primary">&gt;</span>
+            <span class="text-primary">&lt;motion.div</span> variants={"{fade({ direction: \"up\" })}"} /&gt;
           </p>
           <p data-choose-codeline class="whitespace-nowrap">
-            &nbsp;&nbsp;<span class="text-primary">&lt;motion.li</span> variants={"{fade({ direction: \"up\" })}"} /&gt;
-          </p>
-          <p data-choose-codeline class="whitespace-nowrap">
-            <span class="text-primary">&lt;/motion.ul&gt;</span>
+            <span class="text-primary">&lt;motion.div</span> variants={"{slide({ direction: \"left\" })}"} /&gt;
           </p>
         </div>
         <div class="flex flex-wrap gap-4">
@@ -113,6 +109,12 @@ const CODE_BASE =
     </div>
   </div>
 </section>
+
+<style>
+  .kit-shadow {
+    box-shadow: 5px 5px 0 2px var(--color-primary);
+  }
+</style>
 
 <script>
   import { animateFromTo, presetContext, scrollTimeline } from "gsap-presets-kit";
