@@ -1,0 +1,172 @@
+---
+import Button from "@/components/ui/Button.astro";
+import HighlightedText from "@/components/ui/HighlightedText.astro";
+import TerminalCode from "@/components/ui/TerminalCode.astro";
+
+const CARD_BASE =
+	"flex flex-col gap-6 p-6 rounded-2xl border-4 border-dark custom-shadow-primary transition-transform duration-300 ease-out hover:-translate-y-1 motion-reduce:transition-none";
+
+const PEER =
+	"rounded-full border-2 border-dark bg-dark px-4 py-1 font-mono text-sm font-medium text-light";
+
+const CODE_BASE =
+	"flex flex-col rounded-xl border-2 border-dark bg-dark p-4 font-mono text-sm leading-7 text-light overflow-x-auto";
+---
+
+<section data-choose-section class="bg-dark" aria-label="Elige tu motor">
+  <div class="mx-auto w-full max-w-7xl px-4 py-16">
+    <header class="flex flex-col gap-2">
+      <p data-choose-kicker class="font-mono text-sm font-medium text-primary">ELIGE TU MOTOR.</p>
+      <h2
+        data-choose-title
+        class="font-heading text-5xl font-black tracking-tight text-light sm:text-6xl lg:text-7xl"
+      >
+        <HighlightedText>DOS.</HighlightedText> PAQUETES.
+      </h2>
+    </header>
+
+    <div class="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <!-- gsap-presets-kit -->
+      <article data-choose-card="gsap" class:list={[CARD_BASE, "bg-primary"]}>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="font-mono text-2xl font-bold text-dark lg:text-3xl">gsap-presets-kit</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li class={PEER}>gsap</li>
+            <li class={PEER}>zod</li>
+          </ul>
+        </div>
+        <p class="text-lg text-dark/75">
+          Helpers tipados y validados con Zod para GSAP 3.13+. Scroll integrado, timelines, split text y marquee con
+          defaults sensatos que reemplazas en cada llamada.
+        </p>
+        <div class:list={[CODE_BASE, "flex-1"]}>
+          <p data-choose-codeline class="whitespace-nowrap">
+            <span class="text-primary">import</span> {"{ animateFrom, clipReveal }"} <span class="text-primary">from</span>
+            <span class="text-light/60">"gsap-presets-kit"</span>;
+          </p>
+          <p data-choose-codeline class="whitespace-nowrap">&nbsp;</p>
+          <p data-choose-codeline class="whitespace-nowrap">
+            animateFrom(<span class="text-light/60">".card"</span>, {"{ y: 48, stagger: 0.1 }"});
+          </p>
+          <p data-choose-codeline class="whitespace-nowrap">
+            clipReveal(<span class="text-light/60">"#hero"</span>, {"{ direction: \"up\" }"});
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <Button variant="light" href="/docs">Ver Docs</Button>
+          <Button variant="dark" href="/playground">Playground</Button>
+        </div>
+      </article>
+
+      <!-- motion-presets-kit -->
+      <article data-choose-card="motion" class:list={[CARD_BASE, "bg-light"]}>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="font-mono text-2xl font-bold text-dark lg:text-3xl">motion-presets-kit</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li class={PEER}>motion</li>
+            <li class={PEER}>react</li>
+            <li class={PEER}>zod</li>
+          </ul>
+        </div>
+        <p class="text-lg text-dark/75">
+          Presets variant-returning y componentes para motion/react. Fade, slide, clipReveal, TextAnimate y Marquee,
+          validados en runtime y listos para React 19.
+        </p>
+        <div class:list={[CODE_BASE, "flex-1"]}>
+          <p data-choose-codeline class="whitespace-nowrap">
+            <span class="text-primary">import</span> {"{ fade, parentVariants }"} <span class="text-primary">from</span>
+            <span class="text-light/60">"motion-presets-kit/presets"</span>;
+          </p>
+          <p data-choose-codeline class="whitespace-nowrap">&nbsp;</p>
+          <p data-choose-codeline class="whitespace-nowrap">
+            <span class="text-primary">&lt;motion.ul</span> variants={"{parentVariants({ delayChildren: 0.12 })}"}
+            <span class="text-primary">&gt;</span>
+          </p>
+          <p data-choose-codeline class="whitespace-nowrap">
+            &nbsp;&nbsp;<span class="text-primary">&lt;motion.li</span> variants={"{fade({ direction: \"up\" })}"} /&gt;
+          </p>
+          <p data-choose-codeline class="whitespace-nowrap">
+            <span class="text-primary">&lt;/motion.ul&gt;</span>
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <Button variant="primary" href="/docs">Ver Docs</Button>
+          <Button variant="dark" href="/playground">Playground</Button>
+        </div>
+      </article>
+
+      <!-- agent skill -->
+      <article data-choose-card="agent" class:list={[CARD_BASE, "bg-light lg:col-span-2"]}>
+        <div class="flex w-full flex-col gap-6 lg:flex-row lg:items-center lg:gap-10">
+          <div class="flex flex-col gap-4 lg:w-1/2">
+            <h3 class="font-heading text-3xl font-black tracking-tight text-dark lg:text-4xl">¿USAS AGENTES DE IA?</h3>
+            <p class="text-lg text-dark/75">
+              Ambos kits incluyen una agent skill para que OpenCode, Claude Code y compañía usen la API correctamente.
+            </p>
+          </div>
+          <div class="flex flex-1 flex-col gap-4">
+            <TerminalCode code="npx gsap-presets-kit init" variant="dark" />
+            <TerminalCode code="npx motion-presets-kit init" variant="primary" />
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { animateFromTo, presetContext, scrollTimeline } from "gsap-presets-kit";
+  import { $, $$ } from "@/lib/dom";
+
+  const section = $("[data-choose-section]");
+  const kicker = $("[data-choose-kicker]");
+  const title = $("[data-choose-title]");
+  const gsapCard = $("[data-choose-card='gsap']");
+  const motionCard = $("[data-choose-card='motion']");
+  const agentCard = $("[data-choose-card='agent']");
+  const codeLines = $$("[data-choose-codeline]");
+
+  if (section && kicker && title && gsapCard && motionCard && agentCard) {
+    // Con movimiento reducido la sección queda estática: todo es from-style.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const ctx = presetContext();
+
+      ctx.run(() => {
+        // Los dos motores entran enfrentándose: gsap desde la izquierda, motion
+        // desde la derecha. La card de agentes sube al entrar al viewport.
+        const tl = scrollTimeline({ trigger: section, start: "top 40%" });
+
+        if (tl) {
+          animateFromTo(
+            [kicker, title],
+            { y: 24, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out" },
+            { timeline: tl },
+          );
+          animateFromTo(
+            gsapCard,
+            { x: -64, opacity: 0, rotation: -1.5 },
+            { x: 0, opacity: 1, rotation: 0, duration: 0.7, ease: "power3.out" },
+            { timeline: tl, position: 0.2 },
+          );
+          animateFromTo(
+            motionCard,
+            { x: 64, opacity: 0, rotation: 1.5 },
+            { x: 0, opacity: 1, rotation: 0, duration: 0.7, ease: "power3.out" },
+            { timeline: tl, position: 0.3 },
+          );
+          if (codeLines.length > 0) {
+            animateFromTo(
+              codeLines,
+              { y: -12, opacity: 0 },
+              { y: 0, opacity: 1, stagger: 0.08, duration: 0.4, ease: "power2.out" },
+              { timeline: tl, position: 0.75 },
+            );
+          }
+        }
+
+        animateFromTo(agentCard, { y: 48, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" });
+      });
+    }
+  }
+</script>
